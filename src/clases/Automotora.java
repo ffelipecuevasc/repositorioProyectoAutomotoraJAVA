@@ -2,7 +2,9 @@ package clases;
 
 import interfaces.IProyecto;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -10,69 +12,108 @@ import java.util.Optional;
  */
 public class Automotora implements IProyecto {
 
-    private List<Vehiculo> vehiculos;
+    private List<Auto> autos;
     private List<Moto> motos;
     private String rut;
 
-    public Automotora(List<Vehiculo> vehiculos, List<Moto> motos, String rut) {
-        this.vehiculos = vehiculos;
-        this.motos = motos;
-        this.rut = rut;
+    public Automotora() {
+        autos = new ArrayList<Auto>();
+        motos = new ArrayList<Moto>();
+        setRut();
     }
 
-    public List<Vehiculo> getVehiculos() {
-        return vehiculos;
+    public List<Auto> getAutos() {
+        return autos;
     }
 
-    public void setVehiculos(List<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public void setAutos() {
+        Auto a = new Auto();
+        autos.add(a);
     }
 
     public List<Moto> getMotos() {
         return motos;
     }
 
-    public void setMotos(List<Moto> motos) {
-        this.motos = motos;
+    public void setMotos() {
+        Moto m = new Moto();
+        motos.add(m);
     }
 
     public String getRut() {
         return rut;
     }
 
-    public void setRut(String rut) {
-        this.rut = rut;
+    public void setRut() {
+        System.out.println("Ingrese el RUT de la automotora: ");
+        rut = leer.nextLine();
     }
 
     public void buscarVehiculo(String patente) {
-        Optional<Vehiculo> vehiculo = vehiculos.stream().filter(v -> v.getPatente().equals(patente)).findFirst();
-        if (vehiculo.isPresent()) {
-            System.out.println("Vehiculo encontrado: " + vehiculo.get());
+        System.out.println("Seleccione qué desea buscar (1 - Autos, 2 - Motos): ");
+        int op = leer.nextInt();
+        leer.nextLine();
+        if (op == 1) {
+            Optional<Auto> auto = autos.stream().filter(a -> a.getPatente().equals(patente)).findFirst();
+            if (auto.isPresent()) {
+                System.out.println("Auto encontrado: " + auto.get());
+            } else {
+                System.out.println("Auto no encontrado");
+            }
         } else {
-            System.out.println("Vehiculo no encontrado");
+            Optional<Moto> moto = motos.stream().filter(m -> m.getPatente().equals(patente)).findFirst();
+            if (moto.isPresent()) {
+                System.out.println("Moto encontrada: " + moto.get());
+            } else {
+                System.out.println("Moto no encontrada.");
+            }
+        }
+    }
+
+    public void mostrarVehiculosAgrupadosPorMarca() {
+        if (autos.isEmpty()) {
+            System.out.println("No hay autos.");
+        } else {
+            autos.stream().collect(Collectors.groupingBy(Auto::getMarca)).forEach((marca, autos) -> {
+                System.out.println("Marca: " + marca);
+                autos.forEach(System.out::println);
+            });
+        }
+        if (motos.isEmpty()) {
+            System.out.println("No hay motos.");
+        } else {
+            motos.stream().collect(Collectors.groupingBy(Moto::getMarca)).forEach((marca, motos) -> {
+                System.out.println("Marca: " + marca);
+                motos.forEach(System.out::println);
+            });
         }
     }
 
     public void mostrarVehiculos() {
-        vehiculos.forEach(System.out::println);
+        autos.forEach(System.out::println);
+        motos.forEach(System.out::println);
     }
 
     public void venderVehiculo(String patente) {
-        Optional<Vehiculo> vehiculo = vehiculos.stream().filter(v -> v.getPatente().equals(patente)).findFirst();
-        if (vehiculo.isPresent()) {
-            vehiculos.remove(vehiculo.get());
-            System.out.println("Vehiculo vendido: " + vehiculo.get());
+        System.out.println("Seleccione qué desea vender (1 - Autos, 2 - Motos): ");
+        int op = leer.nextInt();
+        leer.nextLine();
+        if (op == 1) {
+            Optional<Auto> auto = autos.stream().filter(a -> a.getPatente().equals(patente)).findFirst();
+            if (auto.isPresent()) {
+                autos.remove(auto.get());
+                System.out.println("Auto vendido: " + auto.get());
+            } else {
+                System.out.println("Auto no encontrado, no se pudo vender.");
+            }
         } else {
-            System.out.println("Vehiculo no encontrado");
+            Optional<Moto> moto = motos.stream().filter(m -> m.getPatente().equals(patente)).findFirst();
+            if (moto.isPresent()) {
+                motos.remove(moto.get());
+                System.out.println("Moto vendida: " + moto.get());
+            } else {
+                System.out.println("Moto no encontrada, no se pudo vender.");
+            }
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Automotora{"
-                + "vehiculos=" + vehiculos
-                + ", motos=" + motos
-                + ", rut='" + rut + '\''
-                + '}';
     }
 }

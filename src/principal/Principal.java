@@ -1,6 +1,7 @@
 package principal;
 
 import interfaces.IProyecto;
+import clases.*;
 
 /**
  *
@@ -8,7 +9,9 @@ import interfaces.IProyecto;
  */
 public class Principal implements IProyecto {
 
+
     public static void main(String[] args) {
+        Automotora miAutomotora = new Automotora();
         int op;
         do {
             menu();
@@ -16,16 +19,26 @@ public class Principal implements IProyecto {
             leer.nextLine();
             switch (op) {
                 case 1:
+                    miAutomotora.setAutos();
                     break;
                 case 2:
+                    miAutomotora.setMotos();
                     break;
                 case 3:
+                    miAutomotora.mostrarVehiculos();
                     break;
                 case 4:
+                    System.out.println("Ingrese la patente del vehiculo a buscar: ");
+                    String patenteB = leer.nextLine();
+                    miAutomotora.buscarVehiculo(patenteB);
                     break;
                 case 5:
+                    miAutomotora.mostrarVehiculosAgrupadosPorMarca();
                     break;
                 case 6:
+                    System.out.println("Ingrese la patente del vehiculo a vender: ");
+                    String patenteV = leer.nextLine();
+                    miAutomotora.venderVehiculo(patenteV);
                     break;
                 case 7:
                     System.out.println("Saliendo...");

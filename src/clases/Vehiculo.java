@@ -1,4 +1,5 @@
 package clases;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ public class Vehiculo implements IProyecto {
     protected String patente, marca, modelo;
     protected Date fechaFabricacion;
     protected Integer valor;
+    protected Integer iva;
     protected Calendar gestionFecha;
     protected SimpleDateFormat formatoFecha;
 
@@ -32,7 +34,7 @@ public class Vehiculo implements IProyecto {
     }
 
     public void setPatente() {
-        System.out.println("Ingrese la patente del vehiculo:");
+        System.out.println("Ingrese la patente del vehiculo: ");
         patente = leer.nextLine();
     }
 
@@ -41,7 +43,7 @@ public class Vehiculo implements IProyecto {
     }
 
     public void setMarca() {
-        System.out.println("Ingrese la marca del vehiculo:");
+        System.out.println("Ingrese la marca del vehiculo: ");
         marca = leer.nextLine();
     }
 
@@ -50,7 +52,7 @@ public class Vehiculo implements IProyecto {
     }
 
     public void setModelo() {
-        System.out.println("Ingrese el modelo del vehiculo:");
+        System.out.println("Ingrese el modelo del vehiculo: ");
         modelo = leer.nextLine();
     }
 
@@ -77,13 +79,21 @@ public class Vehiculo implements IProyecto {
     }
 
     public void setValor() {
-        System.out.println("Ingrese el valor del vehiculo:");
+        System.out.println("Ingrese el valor del vehiculo: ");
         valor = leer.nextInt();
         leer.nextLine();
+        setIva();
+    }
+
+    public void setIva() {
+        iva = (valor * 19 / 100);
     }
 
     public Integer getIva() {
-        Integer iva = valor * (19 / 100);
         return iva;
+    }
+
+    public Integer getValorVenta() {
+        return (valor + iva);
     }
 }

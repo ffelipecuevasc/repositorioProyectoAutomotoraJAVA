@@ -9,10 +9,10 @@ public class Auto extends Vehiculo {
     private Integer cantidadPuertas;
     private String tipo;
 
-    public Auto(String tipo) {
+    public Auto() {
         super();
         setCantidadPuertas();
-        setTipo(tipo);
+        setTipo();
     }
 
     public Integer getCantidadPuertas() {
@@ -20,7 +20,7 @@ public class Auto extends Vehiculo {
     }
 
     public void setCantidadPuertas() {
-        System.out.println("Ingrese la cantidad de puertas");
+        System.out.println("Ingrese la cantidad de puertas: ");
         cantidadPuertas = leer.nextInt();
         leer.nextLine();
 
@@ -30,15 +30,16 @@ public class Auto extends Vehiculo {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo() {
         try {
-
-            if (tipo.equals("Sedan")) {
-                this.tipo = tipo;
-            } else if (tipo.equals("Compacto")) {
-                this.tipo = tipo;
-            } else if (tipo.equals("Deportivo")) {
-                this.tipo = tipo;
+            System.out.println("Ingrese el tipo de auto: ");
+            String aux = leer.nextLine();
+            if (aux.equals("Sedan")) {
+                tipo = aux;
+            } else if (aux.equals("Compacto")) {
+                tipo = aux;
+            } else if (aux.equals("Deportivo")) {
+                tipo = aux;
             } else {
                 throw new Exception("Debe ingresar solo 3 opciones Sedan, Compacto o Deportivo");
             }
@@ -47,4 +48,8 @@ public class Auto extends Vehiculo {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Auto [Patente = " + patente + ", Marca = " + marca + ", Modelo = " + modelo + ", Fecha fabricacion = " + fechaFabricacion + ", Cantidad de puertas = " + cantidadPuertas + ", Tipo = " + tipo + ", Valor = $" + valor + ", Valor de venta = $" + getValorVenta() + "]";
+    }
 }
