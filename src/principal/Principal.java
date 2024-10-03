@@ -4,7 +4,7 @@ import interfaces.IProyecto;
 import clases.*;
 
 /**
- * Proyecto que abarca la aplicación de excepciones
+ * Proyecto que abarca la aplicación de excepciones, API Stream y POO
  * @author Felipe Cuevas
  */
 public class Principal implements IProyecto {
