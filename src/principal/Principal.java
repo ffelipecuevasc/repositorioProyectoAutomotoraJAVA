@@ -4,8 +4,8 @@ import interfaces.IProyecto;
 import clases.*;
 
 /**
- *
- * @author ffeli
+ * Proyecto que abarca la aplicación de excepciones
+ * @author Felipe Cuevas
  */
 public class Principal implements IProyecto {
 
